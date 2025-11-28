@@ -1,319 +1,418 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Projeto de Vida - Adolescentes</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <style>
-        @keyframes fade-in {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+      @keyframes fade-in {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
         }
-        .animate-fade-in {
-            animation: fade-in 0.6s ease-out;
+        to {
+          opacity: 1;
+          transform: translateY(0);
         }
-        .hidden {
-            display: none;
-        }
+      }
+      .animate-fade-in {
+        animation: fade-in 0.6s ease-out;
+      }
+      .hidden {
+        display: none;
+      }
     </style>
-</head>
-<body class="min-h-screen bg-gradient-to-br from-blue-50 via-teal-50 to-green-50 text-gray-800 overflow-hidden">
-    
+  </head>
+  <body
+    class="min-h-screen bg-gradient-to-br from-blue-50 via-teal-50 to-green-50 text-gray-800 overflow-hidden"
+  >
     <div id="app"></div>
-    
+
     <script>
-        // --- Ícones SVG ---
-        const ICONS = {
-            chevronLeft: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>`,
-            chevronRight: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>`,
-            menu: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>`,
-            x: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>`,
-            heart: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>`
-        };
+      // --- Ícones SVG ---
+      const ICONS = {
+        chevronLeft: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>`,
+        chevronRight: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>`,
+        menu: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>`,
+        x: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>`,
+        heart: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>`,
+      };
 
-        // --- Dados dos Slides ---
-        const slides = [
-            // Slide 0: Título
-            {
-                title: "Projeto de Vida para Adolescentes",
-                subtitle: "Construindo Saúde, Futuro e Liberdade",
-                institution: "Universidade Federal de Goiás",
-                program: "Programa de Pós-Graduação em Saúde Coletiva",
-                authors: "Karla, Matheus, Pandora e Pedro",
-                type: "title",
-            },
-            
-            // Slide 1: Contexto
-            {
-                title: "Contexto",
-                subtitle: "Adolescência e Socioeducação",
-                type: "content",
-                sections: [
-                    {
-                        heading: "A Adolescência",
-                        points: [
-                            "Período de intensas transformações corporais, emocionais e sociais",
-                            "Experiência mediada culturalmente e forjada nas relações sociais",
-                            "Complexidade ampliada em condições de restrição de liberdade"
-                        ],
-                    },
-                    {
-                        heading: "Medidas Socioeducativas",
-                        points: [
-                            "Previstas pelo Estatuto da Criança e do Adolescente (ECA)",
-                            "Caráter de excepcionalidade, brevidade e cunho educacional",
-                            "Devem garantir proteção integral, dignidade e reinserção social"
-                        ],
-                    },
-                ],
-            },
-            
-            // Slide 2: Determinantes Sociais
-            {
-                title: "Determinantes Sociais da Saúde",
-                subtitle: "Compreendendo as Vulnerabilidades",
-                type: "content",
-                sections: [
-                    {
-                        heading: "Epidemiologia Crítica (Breilh, 2010)",
-                        points: [
-                            "Saúde e doença são processos socialmente construídos",
-                            "Determinados pelas relações de poder no território",
-                            "Iniquidades estruturais limitam as possibilidades de ser saudável"
-                        ],
-                    },
-                    {
-                        heading: "Realidade dos Adolescentes",
-                        points: [
-                            "Evasão escolar e fragilidade de vínculos familiares",
-                            "Exposição à violência nos territórios de origem",
-                            "Super-representação de jovens negros e periféricos"
-                        ],
-                    },
-                ],
-            },
-            
-            // Slide 3: Projeto de Vida
-            {
-                title: "Projeto de Vida como Dispositivo de Saúde",
-                subtitle: "",
-                type: "boxes",
-                content: {
-                    boxes: [
-                        {
-                            title: "Autonomia",
-                            description: "Instrumentaliza o sujeito para fazer escolhas conscientes e tensionar as imposições do meio"
-                        },
-                        {
-                            title: "Saúde Mental",
-                            description: "Reduz a desesperança e organiza o psiquismo em direção ao futuro"
-                        },
-                        {
-                            title: "Determinantes Sociais",
-                            description: "Articula educação, trabalho e vínculos, atacando raízes da vulnerabilidade"
-                        },
-                        {
-                            title: "Resistência",
-                            description: "Ato de resistência e sobrevivência psíquica diante do estigma"
-                        }
-                    ]
-                }
-            },
-            
-            // Slide 4: Objetivos
-            {
-                title: "Objetivos",
-                type: "content",
-                sections: [
-                    {
-                        heading: "Objetivo Geral",
-                        points: [
-                            "Fomentar o desenvolvimento de projetos de vida de adolescentes em conflito com a lei nos CAPSij"
-                        ],
-                    },
-                    {
-                        heading: "Alinhamento",
-                        points: [
-                            "ODS 3: Saúde e Bem-Estar",
-                            "ODS 16: Paz, Justiça e Instituições Eficazes"
-                        ],
-                    },
-                ],
-            },
+      // --- Dados dos Slides ---
+      const slides = [
+        // Slide 0: Título
+        {
+          title: "Projeto de Vida para Adolescentes",
+          subtitle: "Construindo Saúde, Futuro e Liberdade",
+          institution: "Universidade Federal de Goiás",
+          program: "Programa de Pós-Graduação em Saúde Coletiva",
+          authors: "Karla, Matheus, Pandora e Pedro",
+          type: "title",
+        },
 
-            // Slide 5: Campo de Intervenção
+        // Slide 1: Contexto
+        {
+          title: "Contexto",
+          subtitle: "Adolescência e Socioeducação",
+          type: "content",
+          sections: [
             {
-                title: "Campo de Intervenção",
-                subtitle: "Centros de Atenção Psicossocial Infantojuvenil",
-                type: "content",
-                sections: [
-                    {
-                        heading: "CAPSij em Goiânia",
-                        points: [
-                            "Serviços especializados da Rede de Atenção Psicossocial do SUS",
-                            "Cuidado de crianças e adolescentes em sofrimento mental grave",
-                            "Dois CAPSij atendem adolescentes privados de liberdade"
-                        ],
-                    },
-                    {
-                        heading: "Atuação",
-                        points: [
-                            "Acompanhamento psicossocial contínuo",
-                            "Atendimentos individuais e grupos terapêuticos",
-                            "Articulação com outros serviços da rede"
-                        ],
-                    },
-                ],
+              heading: "A Adolescência (Birman, 2006; Vigotski, 2007)",
+              points: [
+                "Período de intensas transformações corporais, emocionais e sociais",
+                "Experiência mediada culturalmente e forjada nas relações sociais",
+                "Complexidade ampliada em condições de restrição de liberdade",
+              ],
             },
-            
-            // Slide 6: Público-Alvo
             {
-                title: "Público-Alvo",
-                type: "profile",
-                content: {
-                    profile: "Adolescentes entre 12 e 18 anos em cumprimento de medida socioeducativa de internação ou semiliberdade",
-                    needs: [
-                        "Manejo emocional",
-                        "Fortalecimento de vínculos",
-                        "Construção de autonomia",
-                        "Redução de danos",
-                        "Reorganização do projeto de vida"
-                    ]
-                }
+              heading: "Medidas Socioeducativas (Brasil, 1990; Brasil, 2014)",
+              points: [
+                "Previstas pelo Estatuto da Criança e do Adolescente (ECA)",
+                "Caráter de excepcionalidade, brevidade e cunho educacional",
+                "Devem garantir proteção integral, dignidade e reinserção social",
+              ],
             },
+          ],
+        },
 
-            // Slide 7: Metodologia - Parte 1 (Planejamento)
+        // Slide 2: Determinantes Sociais
+        {
+          title: "Determinantes Sociais da Saúde",
+          subtitle: "Compreendendo as Vulnerabilidades",
+          type: "content",
+          sections: [
             {
-                title: "Metodologia",
-                subtitle: "Planejamento baseado em 5W2H",
-                type: "content",
-                sections: [
-                    {
-                        heading: "Ferramenta de Planejamento - 5W2H",
-                        points: [
-                            "What (O quê): Oficinas de construção de projetos de vida",
-                            "Why (Por quê): Promover saúde mental e autonomia dos adolescentes",
-                            "Where (Onde): CAPSij Noroeste e Sul de Goiânia",
-                            "When (Quando): Ciclo de 6 oficinas ao longo de 2026"
-                        ],
-                    },
-                    {
-                        heading: "5W2H (continuação)",
-                        points: [
-                            "Who (Quem): Adolescentes em medida socioeducativa acompanhados pelos CAPSij",
-                            "How (Como): Metodologias ativas, rodas de conversa e atividades reflexivas",
-                            "How much (Quanto): Recursos do CAPSij e equipe multiprofissional"
-                        ],
-                    },
-                ],
+              heading: "Epidemiologia Crítica (Breilh, 2010)",
+              points: [
+                "Saúde e doença são processos socialmente construídos",
+                "Determinados pelas relações de poder no território",
+                "Iniquidades estruturais limitam as possibilidades de ser saudável",
+              ],
             },
-
-            // Slide 8: Metodologia - Parte 2 (Estratégias)
             {
-                title: "Metodologia",
-                subtitle: "Estratégias de Intervenção",
-                type: "content",
-                sections: [
-                    {
-                        heading: "Abordagens Metodológicas",
-                        points: [
-                            "Oficinas temáticas e encontros educativos",
-                            "Metodologias ativas e participativas",
-                            "Rodas de conversa e escuta qualificada",
-                            "Atividades reflexivas e expressivas",
-                            "Integração do cuidado em saúde mental com o processo socioeducativo"
-                        ],
-                    },
-                    {
-                        heading: "Estratégias Específicas",
-                        points: [
-                            "Identificação de potencialidades e recursos individuais",
-                            "Debates sobre direitos, autonomia, futuro e liberdade",
-                            "Fortalecimento do protagonismo juvenil",
-                            "Articulação intersetorial com educação, assistência social e justiça",
-                            "Construção colaborativa de projetos de vida individualizados"
-                        ],
-                    },
-                ],
+              heading: "Realidade dos Adolescentes (Asquidamini, 2015; Souza & Lordello, 2024)",
+              points: [
+                "Evasão escolar e fragilidade de vínculos familiares",
+                "Exposição à violência nos territórios de origem",
+                "Super-representação de jovens negros e periféricos",
+              ],
             },
+          ],
+        },
 
-            // Slide 8: Resultados Esperados
+        // Slide 3: Projeto de Vida
+        {
+          title: "Projeto de Vida como Dispositivo de Saúde",
+          subtitle: "(Alberto et al., 2021; Breilh, 2010; Souza & Lordello, 2024)",
+          type: "boxes",
+          content: {
+            boxes: [
+              {
+                title: "Autonomia",
+                description:
+                  "Instrumentaliza o sujeito para fazer escolhas conscientes e tensionar as imposições do meio",
+              },
+              {
+                title: "Saúde Mental",
+                description:
+                  "Reduz a desesperança e organiza o psiquismo em direção ao futuro",
+              },
+              {
+                title: "Determinantes Sociais",
+                description:
+                  "Articula educação, trabalho e vínculos, atacando raízes da vulnerabilidade",
+              },
+              {
+                title: "Resistência",
+                description:
+                  "Ato de resistência e sobrevivência psíquica diante do estigma",
+              },
+            ],
+          },
+        },
+
+        // Slide 4: Objetivos
+        {
+          title: "Objetivos",
+          type: "content",
+          sections: [
             {
-                title: "Resultados Esperados",
-                type: "results",
-                content: {
-                    results: [
-                        "Construção de novas percepções sobre si mesmos",
-                        "Desenvolvimento de habilidades socioemocionais",
-                        "Fortalecimento de uma visão integral de saúde",
-                        "Reflexões sobre liberdade e responsabilização",
-                        "Ampliação do repertório de possibilidades",
-                        "Fortalecimento das redes de apoio"
-                    ]
-                }
+              heading: "Objetivo Geral",
+              points: [
+                "Fomentar o desenvolvimento de projetos de vida de adolescentes em conflito com a lei nos CAPSij",
+              ],
             },
-            
-            // Slide 9: Monitoramento e Avaliação - Tabela
             {
-                title: "Planejamento do Monitoramento e Avaliação",
-                subtitle: "Atividades realizadas nas oficinas",
-                type: "table",
-                content: {
-                    headers: ["Indicador", "Instrumento", "Periodicidade", "Responsável"],
-                    rows: [
-                        ["Frequência e participação", "Lista de presença e registro de atividades", "Cada oficina", "Equipe do CAPSij"],
-                        ["Desenvolvimento socioemocional", "Observação participante e diários de campo", "Contínua", "Facilitadores"],
-                        ["Elaboração de projetos de vida", "Produção individual dos adolescentes", "Ao final do ciclo", "Equipe multiprofissional"],
-                        ["Articulação com redes", "Reuniões e encaminhamentos registrados", "Mensal", "Coordenação"],
-                        ["Satisfação dos participantes", "Rodas de avaliação", "Bimestral", "Facilitadores"],
-                        ["Impacto na saúde mental", "Avaliação clínica e entrevistas", "Trimestral", "Equipe clínica"]
-                    ]
-                }
+              heading: "Alinhamento",
+              points: [
+                "ODS 3: Saúde e Bem-Estar",
+                "ODS 16: Paz, Justiça e Instituições Eficazes",
+              ],
             },
+          ],
+        },
 
-            // Slide 10: Cronograma de Execução
+        // Slide 5: Campo de Intervenção
+        {
+          title: "Campo de Intervenção",
+          subtitle: "Centros de Atenção Psicossocial Infantojuvenil",
+          type: "content",
+          sections: [
             {
-                title: "Cronograma de Execução",
-                subtitle: "Planejamento das oficinas - 2026/2026",
-                type: "table",
-                content: {
-                    headers: ["Data", "Encontro", "Tema", "Objetivo"],
-                    rows: [
-                        ["05/05/2026", "Encontro 1", "Identidade, narrativa e sentido de futuro", "Explorar como cada adolescente se vê hoje e imagina o amanhã"],
-                        ["12/05/2026", "Encontro 2", "Saúde como base do projeto de vida", "Refletir sobre autocuidado e saúde como elementos que sustentam qualquer futuro"],
-                        ["19/05/2026", "Encontro 3", "Emoções, escolhas e tecnologias de liberdade", "Reconhecer como manejar impulsos e emoções abre caminho para escolhas mais livres"],
-                        ["26/05/2026", "Encontro 4", "Trajetória e rupturas: o que aprendo com a minha história?", "Compreender o próprio percurso como potência de reinvenção"],
-                        ["02/06/2026", "Encontro 5", "Caminhos possíveis: educação, trabalho e vida social", "Mapear as possibilidades reais para o futuro próximo"],
-                        ["09/06/2026", "Encontro 6", "Redes de apoio como tecnologia de futuro", "Identificar pessoas, instituições e serviços que sustentam o projeto de vida"],
-                        ["16/06/2026", "Encontro 7", "Produção coletiva e individual do Projeto de Vida", "Construir plano de vida: curto, médio e longo prazo"]
-                    ]
-                }
+              heading: "CAPSij em Goiânia (Brasil, 2011; Brasil, 2014)",
+              points: [
+                "Serviços especializados da Rede de Atenção Psicossocial do SUS",
+                "Cuidado de crianças e adolescentes em sofrimento mental grave",
+                "Dois CAPSij atendem adolescentes privados de liberdade",
+              ],
             },
-
-            // Slide 11: Encerramento
             {
-                title: "Promover Saúde é Promover Liberdade",
-                subtitle: "Construindo futuros possíveis com dignidade",
-                institution: "Universidade Federal de Goiás",
-                type: "closing",
+              heading: "Atuação (Brasil, 2012b)",
+              points: [
+                "Acompanhamento psicossocial contínuo",
+                "Atendimentos individuais e grupos terapêuticos",
+                "Articulação com outros serviços da rede",
+              ],
             },
-        ];
+          ],
+        },
 
-        // --- Estado da Aplicação ---
-        let currentSlide = 0;
-        let isMenuOpen = false;
+        // Slide 6: Público-Alvo
+        {
+          title: "Público-Alvo",
+          type: "profile",
+          content: {
+            profile:
+              "Adolescentes entre 12 e 18 anos em cumprimento de medida socioeducativa de internação ou semiliberdade",
+            needs: [
+              "Manejo emocional",
+              "Fortalecimento de vínculos",
+              "Construção de autonomia",
+              "Redução de danos",
+              "Reorganização do projeto de vida",
+            ],
+          },
+        },
 
-        // --- Funções de Renderização ---
-        function renderHeader() {
-            return `
+        // Slide 7: Metodologia - Parte 1 (Planejamento)
+        {
+          title: "Metodologia",
+          subtitle: "Planejamento baseado em 5W2H",
+          type: "content",
+          sections: [
+            {
+              heading: "Ferramenta de Planejamento - 5W2H",
+              points: [
+                "What (O quê): Oficinas de construção de projetos de vida",
+                "Why (Por quê): Promover saúde mental e autonomia dos adolescentes",
+                "Where (Onde): CAPSij Noroeste e Sul de Goiânia",
+                "When (Quando): Ciclo de 6 oficinas ao longo de 2026",
+              ],
+            },
+            {
+              heading: "5W2H (continuação)",
+              points: [
+                "Who (Quem): Adolescentes em medida socioeducativa acompanhados pelos CAPSij",
+                "How (Como): Metodologias ativas, rodas de conversa e atividades reflexivas",
+                "How much (Quanto): Recursos do CAPSij e equipe multiprofissional",
+              ],
+            },
+          ],
+        },
+
+        // Slide 8: Metodologia - Parte 2 (Estratégias)
+        {
+          title: "Metodologia",
+          subtitle: "Estratégias de Intervenção",
+          type: "content",
+          sections: [
+            {
+              heading: "Abordagens Metodológicas",
+              points: [
+                "Oficinas temáticas e encontros educativos",
+                "Metodologias ativas e participativas",
+                "Rodas de conversa e escuta qualificada",
+                "Atividades reflexivas e expressivas",
+                "Integração do cuidado em saúde mental com o processo socioeducativo",
+              ],
+            },
+            {
+              heading: "Estratégias Específicas",
+              points: [
+                "Identificação de potencialidades e recursos individuais",
+                "Debates sobre direitos, autonomia, futuro e liberdade",
+                "Fortalecimento do protagonismo juvenil",
+                "Articulação intersetorial com educação, assistência social e justiça",
+                "Construção colaborativa de projetos de vida individualizados",
+              ],
+            },
+          ],
+        },
+
+        // Slide 8: Resultados Esperados
+        {
+          title: "Resultados Esperados",
+          type: "results",
+          content: {
+            results: [
+              "Construção de novas percepções sobre si mesmos",
+              "Desenvolvimento de habilidades socioemocionais",
+              "Fortalecimento de uma visão integral de saúde",
+              "Reflexões sobre liberdade e responsabilização",
+              "Ampliação do repertório de possibilidades",
+              "Fortalecimento das redes de apoio",
+            ],
+          },
+        },
+
+        // Slide 9: Monitoramento e Avaliação - Tabela
+        {
+          title: "Planejamento do Monitoramento e Avaliação",
+          subtitle: "Atividades realizadas nas oficinas",
+          type: "table",
+          content: {
+            headers: [
+              "Indicador",
+              "Instrumento",
+              "Periodicidade",
+              "Responsável",
+            ],
+            rows: [
+              [
+                "Frequência e participação",
+                "Lista de presença e registro de atividades",
+                "Cada oficina",
+                "Equipe do CAPSij",
+              ],
+              [
+                "Desenvolvimento socioemocional",
+                "Observação participante e diários de campo",
+                "Contínua",
+                "Facilitadores",
+              ],
+              [
+                "Elaboração de projetos de vida",
+                "Produção individual dos adolescentes",
+                "Ao final do ciclo",
+                "Equipe multiprofissional",
+              ],
+              [
+                "Articulação com redes",
+                "Reuniões e encaminhamentos registrados",
+                "Mensal",
+                "Coordenação",
+              ],
+              [
+                "Satisfação dos participantes",
+                "Rodas de avaliação",
+                "Bimestral",
+                "Facilitadores",
+              ],
+              [
+                "Impacto na saúde mental",
+                "Avaliação clínica e entrevistas",
+                "Trimestral",
+                "Equipe clínica",
+              ],
+            ],
+          },
+        },
+
+        // Slide 10: Cronograma de Execução
+        {
+          title: "Cronograma de Execução",
+          subtitle: "Planejamento das oficinas - 2026/2026",
+          type: "table",
+          content: {
+            headers: ["Data", "Encontro", "Tema", "Objetivo"],
+            rows: [
+              [
+                "05/05/2026",
+                "Encontro 1",
+                "Identidade, narrativa e sentido de futuro",
+                "Explorar como cada adolescente se vê hoje e imagina o amanhã",
+              ],
+              [
+                "12/05/2026",
+                "Encontro 2",
+                "Saúde como base do projeto de vida",
+                "Refletir sobre autocuidado e saúde como elementos que sustentam qualquer futuro",
+              ],
+              [
+                "19/05/2026",
+                "Encontro 3",
+                "Emoções, escolhas e tecnologias de liberdade",
+                "Reconhecer como manejar impulsos e emoções abre caminho para escolhas mais livres",
+              ],
+              [
+                "26/05/2026",
+                "Encontro 4",
+                "Trajetória e rupturas: o que aprendo com a minha história?",
+                "Compreender o próprio percurso como potência de reinvenção",
+              ],
+              [
+                "02/06/2026",
+                "Encontro 5",
+                "Caminhos possíveis: educação, trabalho e vida social",
+                "Mapear as possibilidades reais para o futuro próximo",
+              ],
+              [
+                "09/06/2026",
+                "Encontro 6",
+                "Redes de apoio como tecnologia de futuro",
+                "Identificar pessoas, instituições e serviços que sustentam o projeto de vida",
+              ],
+              [
+                "16/06/2026",
+                "Encontro 7",
+                "Produção coletiva e individual do Projeto de Vida",
+                "Construir plano de vida: curto, médio e longo prazo",
+              ],
+            ],
+          },
+        },
+
+        // Slide 11: Referências
+        {
+          title: "Referências",
+          subtitle: "",
+          type: "references",
+          content: {
+            references: [
+              "ALBERTO, M. F. P. et al. Construção de projeto de vida de jovens: desafios para atuação profissional no contexto da socioeducação. Gerais: Revista Interinstitucional de Psicologia, Juiz de Fora, v. 14, n. 1, p. 1-23, 2021.",
+              "ASQUIDAMINI, F.; BARBIANI, R.; SUGIZAKI, E. Adolescentes em medida socioeducativa: violência ou violação de direitos? Revista Subjetividades, Fortaleza, v. 15, n. 1, p. 113-123, abr. 2015.",
+              "BIRMAN, J. Tatuando o desamparo: a juventude na atualidade. Adolescentes, p. 25-43, São Paulo: Escuta, 2006.",
+              "BRASIL. Lei nº 8.069, de 13 de julho de 1990. Estatuto da Criança e do Adolescente. Brasília: Diário Oficial da União, 1990.",
+              "BRASIL. Portaria nº 3.088, de 23 de dezembro de 2011. Institui a Rede de Atenção Psicossocial. Brasília: Diário Oficial da União, 2011.",
+              "BRASIL. Lei nº 12.594, de 18 de janeiro de 2012. Sistema Nacional de Atendimento Socioeducativo - SINASE. Brasília: Diário Oficial da União, 2012a.",
+              "BRASIL. Ministério da Saúde. Política Nacional de Atenção Integral à Saúde de Adolescentes em Conflito com a Lei. Brasília: Ministério da Saúde, 2012b.",
+              "BRASIL. Ministério da Saúde. Atenção psicossocial a crianças e adolescentes no SUS: tecendo redes para garantir direitos. Brasília: Ministério da Saúde, 2014.",
+              "BREILH, J. Epidemiologia crítica: ciência emancipadora e interculturalidade. Rio de Janeiro: Fiocruz, 2006.",
+              "DAHLGREN, G.; WHITEHEAD, M. Policies and strategies to promote social equity in health. Stockholm: Institute for Futures Studies, 1991.",
+              "SOUZA, W. G. G.; LORDELLO, S. R. Projeto de Vida, Dispositivo de Racialidade e Prática Antirracista. Estudos e Pesquisas em Psicologia, Rio de Janeiro, v. 24, n. 3, p. 1-17, 2024.",
+              "VIGOTSKI, L. S. A formação social da mente: o desenvolvimento dos processos psicológicos superiores. 7. ed. São Paulo: Martins Fontes, 2007."
+            ]
+          }
+        },
+
+        // Slide 12: Encerramento
+        {
+          title: "Promover Saúde é Promover Liberdade",
+          subtitle: "Construindo futuros possíveis com dignidade",
+          institution: "Universidade Federal de Goiás",
+          type: "closing",
+        },
+      ];
+
+      // --- Estado da Aplicação ---
+      let currentSlide = 0;
+      let isMenuOpen = false;
+
+      // --- Funções de Renderização ---
+      function renderHeader() {
+        return `
             <header class="fixed top-0 left-0 right-0 z-40 bg-white/70 backdrop-blur-md border-b border-teal-200/50 shadow-sm">
                 <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
                     <div class="flex items-center gap-3">
@@ -339,18 +438,19 @@
                 </div>
             </header>
             `;
-        }
+      }
 
-        function renderMenu() {
-            if (!isMenuOpen) return '';
-            
-            const menuItems = slides.map((s, idx) => {
-                const isActive = idx === currentSlide;
-                const classes = isActive
-                    ? "bg-teal-500 text-white"
-                    : "bg-white hover:bg-teal-50 text-teal-800";
-                
-                return `
+      function renderMenu() {
+        if (!isMenuOpen) return "";
+
+        const menuItems = slides
+          .map((s, idx) => {
+            const isActive = idx === currentSlide;
+            const classes = isActive
+              ? "bg-teal-500 text-white"
+              : "bg-white hover:bg-teal-50 text-teal-800";
+
+            return `
                 <button
                     onclick="goToSlide(${idx})"
                     class="w-full text-left px-4 py-3 rounded-lg transition shadow-sm ${classes}"
@@ -359,35 +459,44 @@
                     <div class="text-sm opacity-80">Slide ${idx + 1}</div>
                 </button>
                 `;
-            }).join('');
+          })
+          .join("");
 
-            return `
+        return `
             <div class="fixed left-0 top-16 bottom-0 w-64 bg-white/90 backdrop-blur-md border-r border-teal-200/50 overflow-y-auto z-30 shadow-lg">
                 <div class="p-4 space-y-2">
                     ${menuItems}
                 </div>
             </div>
             `;
-        }
+      }
 
-        function renderMain() {
-            const slide = slides[currentSlide];
-            let slideContent = '';
+      function renderMain() {
+        const slide = slides[currentSlide];
+        let slideContent = "";
 
-            switch (slide.type) {
-                case 'title':
-                    slideContent = `
+        switch (slide.type) {
+          case "title":
+            slideContent = `
                     <div class="text-center space-y-8 animate-fade-in">
                         <div class="space-y-4">
                             <h1 class="text-5xl md:text-6xl font-bold bg-gradient-to-r from-teal-600 via-green-600 to-blue-600 bg-clip-text text-transparent leading-tight">
                                 ${slide.title}
                             </h1>
-                            <p class="text-2xl md:text-3xl text-teal-700 font-light">${slide.subtitle}</p>
+                            <p class="text-2xl md:text-3xl text-teal-700 font-light">${
+                              slide.subtitle
+                            }</p>
                         </div>
                         <div class="pt-8 space-y-3 text-teal-600">
-                            <p class="text-xl font-medium">${slide.institution}</p>
+                            <p class="text-xl font-medium">${
+                              slide.institution
+                            }</p>
                             <p class="text-lg">${slide.program}</p>
-                            ${slide.authors ? `<p class="text-lg font-semibold text-teal-800 pt-4">${slide.authors}</p>` : ''}
+                            ${
+                              slide.authors
+                                ? `<p class="text-lg font-semibold text-teal-800 pt-4">${slide.authors}</p>`
+                                : ""
+                            }
                         </div>
                         <div class="pt-12">
                             <div class="inline-block px-6 py-2 bg-gradient-to-r from-teal-400 to-green-400 rounded-full text-base font-semibold text-white shadow-md">
@@ -396,47 +505,71 @@
                         </div>
                     </div>
                     `;
-                    break;
+            break;
 
-                case 'content':
-                    const sections = slide.sections.map(section => {
-                        const points = section.points ? section.points.map(point => `
+          case "content":
+            const sections = slide.sections
+              .map((section) => {
+                const points = section.points
+                  ? section.points
+                      .map(
+                        (point) => `
                             <li class="flex gap-3 items-start">
                                 <span class="w-2 h-2 rounded-full bg-gradient-to-r from-teal-400 to-green-400 mt-2 flex-shrink-0"></span>
                                 <span class="text-lg text-gray-700 leading-relaxed">${point}</span>
                             </li>
-                        `).join('') : '';
-                        
-                        return `
+                        `
+                      )
+                      .join("")
+                  : "";
+
+                return `
                             <div class="space-y-4 p-6 bg-white/60 rounded-xl border border-teal-200/50 shadow-sm">
-                                <h3 class="text-2xl font-semibold text-teal-700">${section.heading}</h3>
-                                ${points ? `<ul class="space-y-3">${points}</ul>` : ''}
+                                <h3 class="text-2xl font-semibold text-teal-700">${
+                                  section.heading
+                                }</h3>
+                                ${
+                                  points
+                                    ? `<ul class="space-y-3">${points}</ul>`
+                                    : ""
+                                }
                             </div>
                         `;
-                    }).join('');
+              })
+              .join("");
 
-                    slideContent = `
+            slideContent = `
                     <div class="space-y-8 animate-fade-in">
                         <div class="text-center space-y-2">
-                            <h2 class="text-4xl md:text-5xl font-bold text-teal-800">${slide.title}</h2>
-                            ${slide.subtitle ? `<p class="text-2xl text-teal-600 font-light">${slide.subtitle}</p>` : ''}
+                            <h2 class="text-4xl md:text-5xl font-bold text-teal-800">${
+                              slide.title
+                            }</h2>
+                            ${
+                              slide.subtitle
+                                ? `<p class="text-2xl text-teal-600 font-light">${slide.subtitle}</p>`
+                                : ""
+                            }
                         </div>
                         <div class="space-y-6">
                             ${sections}
                         </div>
                     </div>
                     `;
-                    break;
+            break;
 
-                case 'boxes':
-                    const boxes = slide.content.boxes.map(box => `
+          case "boxes":
+            const boxes = slide.content.boxes
+              .map(
+                (box) => `
                         <div class="p-6 bg-white/70 rounded-xl border-2 border-teal-300/50 hover:border-teal-400 transition shadow-md">
                             <h3 class="text-2xl font-bold text-teal-700 mb-3">${box.title}</h3>
                             <p class="text-lg text-gray-700 leading-relaxed">${box.description}</p>
                         </div>
-                    `).join('');
+                    `
+              )
+              .join("");
 
-                    slideContent = `
+            slideContent = `
                     <div class="space-y-8 animate-fade-in">
                         <div class="text-center space-y-2">
                             <h2 class="text-4xl md:text-5xl font-bold text-teal-800">${slide.title}</h2>
@@ -446,16 +579,20 @@
                         </div>
                     </div>
                     `;
-                    break;
+            break;
 
-                case 'profile':
-                    const needs = slide.content.needs.map(need => `
+          case "profile":
+            const needs = slide.content.needs
+              .map(
+                (need) => `
                         <div class="px-4 py-3 bg-teal-50 rounded-lg border border-teal-200">
                             <p class="text-lg text-teal-800 font-medium">${need}</p>
                         </div>
-                    `).join('');
+                    `
+              )
+              .join("");
 
-                    slideContent = `
+            slideContent = `
                     <div class="space-y-8 animate-fade-in">
                         <div class="text-center space-y-2">
                             <h2 class="text-4xl md:text-5xl font-bold text-teal-800">${slide.title}</h2>
@@ -471,17 +608,21 @@
                         </div>
                     </div>
                     `;
-                    break;
+            break;
 
-                case 'results':
-                    const results = slide.content.results.map(result => `
+          case "results":
+            const results = slide.content.results
+              .map(
+                (result) => `
                         <li class="flex gap-3 items-start p-4 bg-white/60 rounded-lg">
                             <span class="w-2 h-2 rounded-full bg-gradient-to-r from-teal-400 to-green-400 mt-2 flex-shrink-0"></span>
                             <span class="text-lg text-gray-700 leading-relaxed">${result}</span>
                         </li>
-                    `).join('');
+                    `
+              )
+              .join("");
 
-                    slideContent = `
+            slideContent = `
                     <div class="space-y-8 animate-fade-in">
                         <div class="text-center space-y-2">
                             <h2 class="text-4xl md:text-5xl font-bold text-teal-800">${slide.title}</h2>
@@ -491,24 +632,43 @@
                         </ul>
                     </div>
                     `;
-                    break;
+            break;
 
-                case 'table':
-                    const tableHeaders = slide.content.headers.map(header => `
+          case "table":
+            const tableHeaders = slide.content.headers
+              .map(
+                (header) => `
                         <th class="px-4 py-3 bg-gradient-to-r from-teal-500 to-green-500 text-white font-semibold text-left">${header}</th>
-                    `).join('');
+                    `
+              )
+              .join("");
 
-                    const tableRows = slide.content.rows.map(row => `
+            const tableRows = slide.content.rows
+              .map(
+                (row) => `
                         <tr class="border-b border-teal-200 hover:bg-teal-50/50 transition">
-                            ${row.map(cell => `<td class="px-4 py-3 text-gray-700">${cell}</td>`).join('')}
+                            ${row
+                              .map(
+                                (cell) =>
+                                  `<td class="px-4 py-3 text-gray-700">${cell}</td>`
+                              )
+                              .join("")}
                         </tr>
-                    `).join('');
+                    `
+              )
+              .join("");
 
-                    slideContent = `
+            slideContent = `
                     <div class="space-y-8 animate-fade-in">
                         <div class="text-center space-y-2">
-                            <h2 class="text-4xl md:text-5xl font-bold text-teal-800">${slide.title}</h2>
-                            ${slide.subtitle ? `<p class="text-xl text-teal-600 font-light">${slide.subtitle}</p>` : ''}
+                            <h2 class="text-4xl md:text-5xl font-bold text-teal-800">${
+                              slide.title
+                            }</h2>
+                            ${
+                              slide.subtitle
+                                ? `<p class="text-xl text-teal-600 font-light">${slide.subtitle}</p>`
+                                : ""
+                            }
                         </div>
                         <div class="overflow-x-auto bg-white/70 rounded-xl border-2 border-teal-300/50 shadow-md">
                             <table class="w-full">
@@ -524,10 +684,35 @@
                         </div>
                     </div>
                     `;
-                    break;
+            break;
 
-                case 'closing':
-                    slideContent = `
+          case "references":
+            const referencesList = slide.content.references
+              .map(
+                (ref) => `
+                        <li class="text-sm text-gray-700 leading-relaxed text-left p-3 bg-white/60 rounded-lg border border-teal-100">
+                            ${ref}
+                        </li>
+                    `
+              )
+              .join("");
+
+            slideContent = `
+                    <div class="space-y-6 animate-fade-in">
+                        <div class="text-center space-y-2">
+                            <h2 class="text-4xl md:text-5xl font-bold text-teal-800">${slide.title}</h2>
+                        </div>
+                        <div class="max-h-96 overflow-y-auto pr-2">
+                            <ul class="space-y-3">
+                                ${referencesList}
+                            </ul>
+                        </div>
+                    </div>
+                    `;
+            break;
+
+          case "closing":
+            slideContent = `
                     <div class="text-center space-y-12 animate-fade-in">
                         <div class="space-y-6">
                             <h1 class="text-5xl md:text-6xl font-bold bg-gradient-to-r from-teal-600 via-green-600 to-blue-600 bg-clip-text text-transparent leading-tight">
@@ -543,21 +728,21 @@
                         </div>
                     </div>
                     `;
-                    break;
-            }
+            break;
+        }
 
-            return `
+        return `
             <main class="pt-20 pb-24 px-4 min-h-screen flex items-center justify-center">
                 <div class="w-full max-w-5xl">
                     ${slideContent}
                 </div>
             </main>
             `;
-        }
+      }
 
-        function renderFooter() {
-            const progress = ((currentSlide + 1) / slides.length) * 100;
-            return `
+      function renderFooter() {
+        const progress = ((currentSlide + 1) / slides.length) * 100;
+        return `
             <footer class="fixed bottom-0 left-0 right-0 bg-white/70 backdrop-blur-md border-t border-teal-200/50 shadow-sm">
                 <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
                     <button
@@ -583,60 +768,58 @@
                 </div>
             </footer>
             `;
-        }
+      }
 
-        // --- Função Principal de Renderização ---
-        function renderApp() {
-            const appEl = document.getElementById('app');
-            if (appEl) {
-                appEl.innerHTML = `
+      // --- Função Principal de Renderização ---
+      function renderApp() {
+        const appEl = document.getElementById("app");
+        if (appEl) {
+          appEl.innerHTML = `
                     ${renderHeader()}
                     ${renderMenu()}
                     ${renderMain()}
                     ${renderFooter()}
                 `;
-            }
         }
+      }
 
-        // --- Funções de Evento ---
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % slides.length;
-            renderApp();
+      // --- Funções de Evento ---
+      function nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.length;
+        renderApp();
+      }
+
+      function prevSlide() {
+        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+        renderApp();
+      }
+
+      function goToSlide(index) {
+        currentSlide = index;
+        isMenuOpen = false;
+        renderApp();
+      }
+
+      function toggleMenu() {
+        isMenuOpen = !isMenuOpen;
+        renderApp();
+      }
+
+      // --- Event Listeners ---
+      function handleKeyPress(e) {
+        if (e.key === "ArrowRight" || e.key === " ") {
+          e.preventDefault();
+          nextSlide();
+        } else if (e.key === "ArrowLeft") {
+          e.preventDefault();
+          prevSlide();
         }
+      }
 
-        function prevSlide() {
-            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-            renderApp();
-        }
+      window.addEventListener("keydown", handleKeyPress);
 
-        function goToSlide(index) {
-            currentSlide = index;
-            isMenuOpen = false;
-            renderApp();
-        }
-
-        function toggleMenu() {
-            isMenuOpen = !isMenuOpen;
-            renderApp();
-        }
-
-        // --- Event Listeners ---
-        function handleKeyPress(e) {
-            if (e.key === "ArrowRight" || e.key === " ") {
-                e.preventDefault();
-                nextSlide();
-            } else if (e.key === "ArrowLeft") {
-                e.preventDefault();
-                prevSlide();
-            }
-        }
-
-        window.addEventListener("keydown", handleKeyPress);
-
-        // --- Renderização Inicial ---
-        document.addEventListener('DOMContentLoaded', renderApp);
+      // --- Renderização Inicial ---
+      document.addEventListener("DOMContentLoaded", renderApp);
     </script>
-</body>
+  </body>
 </html>
-
-
