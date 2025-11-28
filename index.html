@@ -49,6 +49,7 @@
           institution: "Universidade Federal de Goiás",
           program: "Programa de Pós-Graduação em Saúde Coletiva",
           authors: "Karla, Matheus, Pandora e Pedro",
+          advisor: "Orientadora: Profa. Dra. Nilza Almeida",
           type: "title",
         },
 
@@ -92,7 +93,8 @@
               ],
             },
             {
-              heading: "Realidade dos Adolescentes (Asquidamini, 2015; Souza & Lordello, 2024)",
+              heading:
+                "Realidade dos Adolescentes (Asquidamini, 2015; Souza & Lordello, 2024)",
               points: [
                 "Evasão escolar e fragilidade de vínculos familiares",
                 "Exposição à violência nos territórios de origem",
@@ -105,7 +107,8 @@
         // Slide 3: Projeto de Vida
         {
           title: "Projeto de Vida como Dispositivo de Saúde",
-          subtitle: "(Alberto et al., 2021; Breilh, 2010; Souza & Lordello, 2024)",
+          subtitle:
+            "(Alberto et al., 2021; Breilh, 2010; Souza & Lordello, 2024)",
           type: "boxes",
           content: {
             boxes: [
@@ -374,7 +377,15 @@
           },
         },
 
-        // Slide 11: Referências
+        // Slide 11: Encerramento
+        {
+          title: "Promover Saúde é Promover Liberdade",
+          subtitle: "Construindo futuros possíveis com dignidade",
+          institution: "Universidade Federal de Goiás",
+          type: "closing",
+        },
+
+        // Slide 12: Referências
         {
           title: "Referências",
           subtitle: "",
@@ -392,17 +403,9 @@
               "BREILH, J. Epidemiologia crítica: ciência emancipadora e interculturalidade. Rio de Janeiro: Fiocruz, 2006.",
               "DAHLGREN, G.; WHITEHEAD, M. Policies and strategies to promote social equity in health. Stockholm: Institute for Futures Studies, 1991.",
               "SOUZA, W. G. G.; LORDELLO, S. R. Projeto de Vida, Dispositivo de Racialidade e Prática Antirracista. Estudos e Pesquisas em Psicologia, Rio de Janeiro, v. 24, n. 3, p. 1-17, 2024.",
-              "VIGOTSKI, L. S. A formação social da mente: o desenvolvimento dos processos psicológicos superiores. 7. ed. São Paulo: Martins Fontes, 2007."
-            ]
-          }
-        },
-
-        // Slide 12: Encerramento
-        {
-          title: "Promover Saúde é Promover Liberdade",
-          subtitle: "Construindo futuros possíveis com dignidade",
-          institution: "Universidade Federal de Goiás",
-          type: "closing",
+              "VIGOTSKI, L. S. A formação social da mente: o desenvolvimento dos processos psicológicos superiores. 7. ed. São Paulo: Martins Fontes, 2007.",
+            ],
+          },
         },
       ];
 
@@ -495,6 +498,11 @@
                             ${
                               slide.authors
                                 ? `<p class="text-lg font-semibold text-teal-800 pt-4">${slide.authors}</p>`
+                                : ""
+                            }
+                            ${
+                              slide.advisor
+                                ? `<p class="text-base text-teal-700 pt-2 italic">${slide.advisor}</p>`
                                 : ""
                             }
                         </div>
