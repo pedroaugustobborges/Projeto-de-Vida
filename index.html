@@ -80,7 +80,7 @@
 
         // Slide 2: Determinantes Sociais
         {
-          title: "Determinação Social da Saúde da Saúde",
+          title: "Determinantes Sociais da Saúde",
           subtitle: "Compreendendo as Vulnerabilidades",
           type: "content",
           sections: [
@@ -581,6 +581,11 @@
                     <div class="space-y-8 animate-fade-in">
                         <div class="text-center space-y-2">
                             <h2 class="text-4xl md:text-5xl font-bold text-teal-800">${slide.title}</h2>
+                            ${
+                              slide.subtitle
+                                ? `<p class="text-xl text-teal-600 font-light">${slide.subtitle}</p>`
+                                : ""
+                            }
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             ${boxes}
@@ -831,4 +836,3 @@
     </script>
   </body>
 </html>
-
